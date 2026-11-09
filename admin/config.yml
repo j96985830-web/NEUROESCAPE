@@ -3,7 +3,7 @@
 
 backend:
   name: github
-  repo: USUARIO/REPOSITORIO   # ← CAMBIAR (ejemplo: mi-usuario/neuroscape)
+  repo: repo: j96985830-web/NEUROESCAPE   # ← CAMBIAR (ejemplo: mi-usuario/neuroscape)
   branch: main
   commit_messages:
     create: "Contenido: crear {{collection}} «{{slug}}»"
@@ -18,8 +18,8 @@ locale: es
 publish_mode: editorial_workflow
 media_folder: assets/uploads
 public_folder: /assets/uploads
-site_url: https://REEMPLAZAR-CON-LA-DIRECCION-DEL-SITIO.netlify.app
-display_url: https://REEMPLAZAR-CON-LA-DIRECCION-DEL-SITIO.netlify.app
+site_url: https://magical-fenglisu-028184.netlify.app
+display_url: https://magical-fenglisu-028184.netlify.app
 
 collections:
   # ── Ajustes generales ────────────────────────────────────────────────────────
