@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#071827" />
+    <meta name="description" content="NEUROSCAPE: explorador neuropsicológico interactivo." />
+    <title>NEUROSCAPE — Explorador neuropsicológico</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <noscript>NEUROSCAPE necesita JavaScript para mostrar el explorador.</noscript>
+    <div id="app" class="app-shell" aria-live="polite"></div>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "./vendor/three/three.module.js",
+          "three/addons/": "./vendor/three/addons/"
+        }
+      }
+    </script>
+    <script src="data/knowledge-base.js"></script>
+    <script src="data/atlas-mapping.js"></script>
+    <script src="js/brain.js"></script>
+    <script src="js/brain3d.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/routes.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

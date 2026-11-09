@@ -1,0 +1,13 @@
+# Netlify valida el contenido en cada publicación. Si hay errores, NO publica
+# y el sitio sigue mostrando la última versión correcta.
+[build]
+  command = "node scripts/build-content.js"
+  publish = "."
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Robots-Tag = "noindex"
