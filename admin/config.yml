@@ -3,7 +3,7 @@
 
 backend:
   name: github
-  repo: repo: j96985830-web/NEUROESCAPE   # ← CAMBIAR (ejemplo: mi-usuario/neuroscape)
+  repo:  j96985830-web/NEUROESCAPE
   branch: main
   commit_messages:
     create: "Contenido: crear {{collection}} «{{slug}}»"
