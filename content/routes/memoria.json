@@ -1,0 +1,23 @@
+{
+  "id": "memoria",
+  "number": "02",
+  "name": "Memoria y testimonio",
+  "color": "#9d8cff",
+  "structures": [
+    "temporal",
+    "hipocampo",
+    "amigdala",
+    "limbico"
+  ],
+  "flow": [
+    "Formación de recuerdos",
+    "Memoria episódica y componente emocional",
+    "Análisis psicológico del testimonio"
+  ],
+  "forensic": "La evaluación de la credibilidad o del testimonio no demuestra por sí sola que un hecho ocurrió; se integra con otros datos.",
+  "warning": "Memoria ≠ reproducción exacta de los hechos.",
+  "sources": [
+    "morris",
+    "vazquez"
+  ]
+}

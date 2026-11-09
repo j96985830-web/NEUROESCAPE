@@ -1,0 +1,31 @@
+{
+  "id": "hipocampo",
+  "name": "Hipocampo",
+  "group": "Profundas",
+  "location": "Región temporal medial, vinculada al sistema límbico.",
+  "description": "Estructura profunda incluida en la formación hipocampal.",
+  "function": "Es esencial para formar nuevos recuerdos y se relaciona con memoria episódica y espacial.",
+  "processes": [
+    "Memoria episódica",
+    "Aprendizaje",
+    "Memoria espacial"
+  ],
+  "forensic": "Es relevante para comprender procesos de memoria relacionados con el testimonio, sin asumir que un recuerdo reproduce literalmente un hecho.",
+  "warning": "Memoria no significa grabación exacta de los acontecimientos.",
+  "evidence": "directa",
+  "connections": [
+    "amigdala",
+    "limbico",
+    "calloso"
+  ],
+  "sources": [
+    "morris",
+    "hilares"
+  ],
+  "position": {
+    "x": 54,
+    "y": 60,
+    "view": "deep"
+  },
+  "order": 40
+}

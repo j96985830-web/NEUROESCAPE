@@ -1,0 +1,32 @@
+{
+  "id": "limbico",
+  "name": "Sistema límbico",
+  "group": "Profundas",
+  "location": "Conjunto de estructuras profundas y corticales mediales.",
+  "description": "Sistema funcional que reúne estructuras relacionadas con emoción, aprendizaje y respuestas al estrés.",
+  "function": "Participa en aprendizaje y conducta emocional; coordina respuestas durante el estrés.",
+  "processes": [
+    "Emoción",
+    "Aprendizaje",
+    "Estrés"
+  ],
+  "forensic": "Ofrece un puente general para discutir procesos emocionales en evaluación psicológica, nunca una explicación única de conducta.",
+  "warning": "Cerebro, proceso psicológico y contexto interactúan: el sistema límbico no determina una conducta.",
+  "evidence": "directa",
+  "connections": [
+    "amigdala",
+    "hipocampo",
+    "hipotalamo",
+    "frontal"
+  ],
+  "sources": [
+    "curtis",
+    "morris"
+  ],
+  "position": {
+    "x": 48,
+    "y": 50,
+    "view": "deep"
+  },
+  "order": 60
+}

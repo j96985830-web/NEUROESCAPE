@@ -1,0 +1,21 @@
+{
+  "id": "atencion",
+  "number": "04",
+  "name": "Atención y conciencia",
+  "color": "#f8c75b",
+  "structures": [
+    "reticular",
+    "talamo"
+  ],
+  "flow": [
+    "Alerta, vigilia y filtrado de estímulos",
+    "Atención e integración de información",
+    "Condiciones cognitivas relevantes para la evaluación"
+  ],
+  "forensic": "La ruta ayuda a comprender la activación y la atención dentro de procesos cognitivos; no reemplaza una evaluación profesional.",
+  "warning": "Una ruta didáctica no es una prueba de atención ni de conciencia.",
+  "sources": [
+    "curtis",
+    "vazquez"
+  ]
+}

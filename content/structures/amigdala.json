@@ -1,0 +1,31 @@
+{
+  "id": "amigdala",
+  "name": "Amígdala",
+  "group": "Profundas",
+  "location": "Región temporal medial; parte del sistema límbico.",
+  "description": "Complejo profundo relacionado con el procesamiento de información emocional.",
+  "function": "Participa en la regulación de emociones, memoria emocional e interpretación de expresiones emocionales.",
+  "processes": [
+    "Emoción",
+    "Memoria emocional",
+    "Procesamiento de expresiones"
+  ],
+  "forensic": "Permite explicar por qué componentes emocionales pueden relacionarse con recuerdo e interpretación, dentro de una evaluación integral.",
+  "warning": "Amígdala no equivale a violencia ni permite predecir conducta delictiva.",
+  "evidence": "directa",
+  "connections": [
+    "hipocampo",
+    "limbico",
+    "hipotalamo"
+  ],
+  "sources": [
+    "morris",
+    "curtis"
+  ],
+  "position": {
+    "x": 64,
+    "y": 66,
+    "view": "deep"
+  },
+  "order": 50
+}

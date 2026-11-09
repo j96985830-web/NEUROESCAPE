@@ -1,0 +1,185 @@
+# NEUROSCAPE · configuración del editor de contenidos (Decap CMS)
+# Administración técnica: cambie SOLO la línea «repo» por su usuario/repositorio de GitHub.
+
+backend:
+  name: github
+  repo: USUARIO/REPOSITORIO   # ← CAMBIAR (ejemplo: mi-usuario/neuroscape)
+  branch: main
+  commit_messages:
+    create: "Contenido: crear {{collection}} «{{slug}}»"
+    update: "Contenido: actualizar {{collection}} «{{slug}}»"
+    delete: "Contenido: eliminar {{collection}} «{{slug}}»"
+    uploadMedia: "Contenido: subir archivo «{{path}}»"
+    deleteMedia: "Contenido: eliminar archivo «{{path}}»"
+    openAuthoring: "{{message}}"
+
+locale: es
+# Flujo borrador → en revisión → listo. Cada cambio queda con autor, fecha y versión anterior en GitHub.
+publish_mode: editorial_workflow
+media_folder: assets/uploads
+public_folder: /assets/uploads
+site_url: https://REEMPLAZAR-CON-LA-DIRECCION-DEL-SITIO.netlify.app
+display_url: https://REEMPLAZAR-CON-LA-DIRECCION-DEL-SITIO.netlify.app
+
+collections:
+  # ── Ajustes generales ────────────────────────────────────────────────────────
+  - name: ajustes
+    label: "Ajustes generales"
+    files:
+      - name: settings
+        label: "Portada, advertencia global y módulo forense"
+        file: content/settings.json
+        fields:
+          - { label: "Título de la portada", name: heroTitle, widget: string }
+          - { label: "Texto de presentación", name: heroLead, widget: text }
+          - label: "Mostrar módulo forense"
+            name: forensicModule
+            widget: boolean
+            hint: "Activado: se muestran las secciones «Relevancia para psicología forense», «Límite interpretativo» y «Puente hacia lo forense». Desactivado: se ocultan en todo el sitio."
+          - label: "Advertencia científica global"
+            name: globalWarning
+            widget: text
+            hint: "Aparece en varias páginas. Si desactiva el módulo forense, revise que este texto siga siendo apropiado para su curso."
+          - label: "Grupos del menú anatómico"
+            name: groupOrder
+            widget: list
+            field: { label: Grupo, name: grupo, widget: string }
+            hint: "Orden en el menú. Cada ficha debe pertenecer a uno de estos grupos. Si cambia un nombre, avise a administración técnica."
+
+  # ── Estructuras ──────────────────────────────────────────────────────────────
+  - name: estructuras
+    label: "Fichas de estructuras"
+    folder: content/structures
+    extension: json
+    format: json
+    create: false   # Una ficha nueva necesita su mapeo 3D auditado: la crea administración técnica.
+    delete: false
+    identifier_field: name
+    summary: "{{name}} · {{group}}"
+    fields:
+      - { label: Identificador, name: id, widget: hidden }
+      - { label: Orden, name: order, widget: hidden }
+      - { label: "Posición en la vista didáctica", name: position, widget: hidden }
+      - { label: Nombre, name: name, widget: string }
+      - label: Grupo
+        name: group
+        widget: select
+        options: ["Corteza", "Profundas", "Diencéfalo", "Tronco", "Sustancia blanca"]
+      - { label: "Ubicación anatómica", name: location, widget: text }
+      - { label: "Descripción", name: description, widget: text }
+      - label: "Funciones respaldadas"
+        name: function
+        widget: text
+        hint: "Use formulaciones prudentes: «participa en», «se relaciona con», «interviene en»."
+      - label: "Procesos psicológicos relacionados"
+        name: processes
+        widget: list
+        field: { label: Proceso, name: proceso, widget: string }
+      - label: "Relevancia para psicología forense (opcional)"
+        name: forensic
+        widget: text
+        required: false
+        hint: "Solo se muestra si el módulo forense está activado en Ajustes generales."
+      - label: "Límite interpretativo (opcional)"
+        name: interpretiveBridge
+        widget: text
+        required: false
+        hint: "Solo se muestra si el módulo forense está activado."
+      - { label: "Precaución científica", name: warning, widget: text }
+      - label: "Nivel de evidencia"
+        name: evidence
+        widget: select
+        options:
+          - { label: "Directa (respaldada de forma directa por las fuentes)", value: directa }
+          - { label: "Contextual (relación contextual o didáctica)", value: contextual }
+      - label: "Conexiones con otras fichas"
+        name: connections
+        widget: relation
+        collection: estructuras
+        search_fields: [name]
+        value_field: id
+        display_fields: [name]
+        multiple: true
+        required: false
+      - label: "Fuentes"
+        name: sources
+        widget: relation
+        collection: fuentes
+        search_fields: [short, title]
+        value_field: id
+        display_fields: [short]
+        multiple: true
+        hint: "Toda ficha debe tener al menos una fuente."
+
+  # ── Rutas ────────────────────────────────────────────────────────────────────
+  - name: rutas
+    label: "Rutas neuropsicológicas"
+    folder: content/routes
+    extension: json
+    format: json
+    create: true
+    delete: true
+    identifier_field: id
+    summary: "{{number}} · {{name}}"
+    fields:
+      - label: Identificador
+        name: id
+        widget: string
+        pattern: ["^[a-z0-9-]+$", "Solo minúsculas, números y guiones, sin espacios ni tildes."]
+        hint: "Único. No lo cambie en una ruta existente."
+      - { label: "Número (01, 02, 03…)", name: number, widget: string, pattern: ["^[0-9]{2}$", "Dos dígitos, por ejemplo 06."] }
+      - { label: Nombre, name: name, widget: string }
+      - { label: "Color de la ruta", name: color, widget: color, enableAlpha: false, allowInput: true }
+      - label: "Estructuras de la ruta (en orden)"
+        name: structures
+        widget: relation
+        collection: estructuras
+        search_fields: [name]
+        value_field: id
+        display_fields: [name]
+        multiple: true
+      - label: "Pasos del recorrido"
+        name: flow
+        widget: list
+        field: { label: Paso, name: paso, widget: string }
+      - label: "Puente hacia lo forense (opcional)"
+        name: forensic
+        widget: text
+        required: false
+        hint: "Solo se muestra si el módulo forense está activado."
+      - { label: "Lectura responsable", name: warning, widget: text }
+      - label: "Fuentes"
+        name: sources
+        widget: relation
+        collection: fuentes
+        search_fields: [short, title]
+        value_field: id
+        display_fields: [short]
+        multiple: true
+
+  # ── Fuentes ──────────────────────────────────────────────────────────────────
+  - name: fuentes
+    label: "Fuentes y bibliografía"
+    folder: content/sources
+    extension: json
+    format: json
+    create: true
+    delete: true
+    identifier_field: id
+    summary: "{{short}} · {{title}}"
+    fields:
+      - label: Identificador
+        name: id
+        widget: string
+        pattern: ["^[a-z0-9-]+$", "Solo minúsculas, números y guiones, sin espacios ni tildes."]
+        hint: "Único. No lo cambie en una fuente existente. La fuente «nih3d» (atlas 3D) está protegida: no puede eliminarse ni perder su licencia o atribución."
+      - { label: "Nombre corto (aparece en las fichas)", name: short, widget: string }
+      - { label: Título, name: title, widget: string }
+      - { label: Autores, name: authors, widget: string }
+      - { label: "Edición / datos de publicación", name: edition, widget: string }
+      - { label: "Uso en NEUROSCAPE", name: use, widget: text }
+      - { label: "Sección consultada", name: locator, widget: string }
+      - { label: "Licencia (opcional)", name: license, widget: string, required: false }
+      - { label: "Atribución (opcional)", name: attribution, widget: text, required: false }
+      - { label: "Enlace (opcional)", name: url, widget: string, required: false, pattern: ["^https?://", "Debe empezar por http:// o https://"] }
+      - { label: "Posición en la lista", name: order, widget: number, value_type: int, min: 1, default: 100, hint: "Menor número = aparece antes." }

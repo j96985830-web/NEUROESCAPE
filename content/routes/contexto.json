@@ -1,0 +1,23 @@
+{
+  "id": "contexto",
+  "number": "05",
+  "name": "Motivación, emoción y contexto",
+  "color": "#62d7b3",
+  "structures": [
+    "hipotalamo",
+    "limbico",
+    "amigdala"
+  ],
+  "flow": [
+    "Motivación y respuesta emocional",
+    "Procesos psicológicos",
+    "Factores personales, familiares, culturales y ambientales"
+  ],
+  "forensic": "La conducta se estudia en un contexto global: cerebro, procesos psicológicos y condiciones personales y ambientales interactúan.",
+  "warning": "Conducta ≠ cerebro. El modelo no atribuye la conducta a una estructura o sistema único.",
+  "sources": [
+    "curtis",
+    "alcazar",
+    "vazquez"
+  ]
+}

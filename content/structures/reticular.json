@@ -1,0 +1,31 @@
+{
+  "id": "reticular",
+  "name": "Formación reticular",
+  "group": "Tronco",
+  "location": "Red neuronal distribuida en el tronco del encéfalo.",
+  "description": "Sistema representado en relación con el sistema activador reticular.",
+  "function": "Junto con neuronas talámicas, participa en alerta, atención, vigilia, conciencia y filtrado de estímulos.",
+  "processes": [
+    "Alerta",
+    "Atención",
+    "Vigilia",
+    "Conciencia"
+  ],
+  "forensic": "Puede contextualizar el estado de activación y atención en procesos cognitivos, entrevistas y evaluación; no establece una conclusión aislada.",
+  "warning": "La atención se evalúa con múltiples datos; esta estructura no ofrece una medida clínica por sí sola.",
+  "evidence": "directa",
+  "connections": [
+    "talamo",
+    "hipotalamo",
+    "cerebelo"
+  ],
+  "sources": [
+    "curtis"
+  ],
+  "position": {
+    "x": 52,
+    "y": 77,
+    "view": "deep"
+  },
+  "order": 90
+}

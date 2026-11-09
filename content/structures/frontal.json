@@ -1,0 +1,31 @@
+{
+  "id": "frontal",
+  "name": "Lóbulo frontal",
+  "group": "Corteza",
+  "location": "Porción anterior de la corteza cerebral.",
+  "description": "Región cortical que integra información procedente de otras áreas y participa en conductas dirigidas a metas.",
+  "function": "Participa en atención, conducta dirigida a metas, experiencias emocionales y aspectos de la personalidad.",
+  "processes": [
+    "Atención",
+    "Conducta dirigida a metas",
+    "Regulación emocional"
+  ],
+  "forensic": "Puede contextualizar procesos psicológicos examinados durante una evaluación; no establece por sí solo una conclusión jurídica.",
+  "warning": "Una región frontal no explica por sí sola una conducta ni permite inferir imputabilidad.",
+  "evidence": "directa",
+  "connections": [
+    "prefrontal",
+    "limbico",
+    "talamo"
+  ],
+  "sources": [
+    "morris",
+    "curtis"
+  ],
+  "position": {
+    "x": 34,
+    "y": 25,
+    "view": "surface"
+  },
+  "order": 10
+}

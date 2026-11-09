@@ -1,0 +1,21 @@
+{
+  "id": "cognicion",
+  "number": "01",
+  "name": "Cognición y juicio",
+  "color": "#59c3ff",
+  "structures": [
+    "frontal",
+    "prefrontal"
+  ],
+  "flow": [
+    "Atención y conducta dirigida a metas",
+    "Solución de problemas y juicio",
+    "Evaluación del funcionamiento psicológico"
+  ],
+  "forensic": "En evaluación forense pueden explorarse capacidades y funcionamiento psicológico mediante múltiples fuentes; esta ruta no decide responsabilidad jurídica.",
+  "warning": "El funcionamiento de una estructura no determina imputabilidad.",
+  "sources": [
+    "morris",
+    "vazquez"
+  ]
+}

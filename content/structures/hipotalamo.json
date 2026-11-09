@@ -1,0 +1,30 @@
+{
+  "id": "hipotalamo",
+  "name": "Hipotálamo",
+  "group": "Diencéfalo",
+  "location": "Diencéfalo, inferior al tálamo.",
+  "description": "Estructura diencefálica integrada en circuitos de regulación.",
+  "function": "Participa en regulación de la motivación y en respuestas emocionales.",
+  "processes": [
+    "Motivación",
+    "Emoción"
+  ],
+  "forensic": "Puede incorporarse al análisis didáctico de procesos motivacionales y emocionales examinados psicológicamente.",
+  "warning": "Hipotálamo no equivale a conducta delictiva ni explica una conducta en aislamiento.",
+  "evidence": "directa",
+  "connections": [
+    "limbico",
+    "amigdala",
+    "reticular"
+  ],
+  "sources": [
+    "curtis",
+    "hilares"
+  ],
+  "position": {
+    "x": 51,
+    "y": 56,
+    "view": "deep"
+  },
+  "order": 80
+}

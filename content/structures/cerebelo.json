@@ -1,0 +1,30 @@
+{
+  "id": "cerebelo",
+  "name": "Cerebelo",
+  "group": "Tronco",
+  "location": "Región posterior e inferior del encéfalo.",
+  "description": "Estructura posterior con una contribución secundaria en este enfoque neuropsicológico-forense.",
+  "function": "Coordina movimientos, equilibrio y ejecución eficiente de secuencias motoras.",
+  "processes": [
+    "Coordinación motora",
+    "Aprendizaje procedimental"
+  ],
+  "forensic": "Las fuentes aportadas respaldan su papel motor, de equilibrio y de secuencias, pero no establecen una aplicación forense directa.",
+  "interpretiveBridge": "Como decisión didáctica, se incorpora para mostrar que la exploración neuropsicológica no debe reducirse a una sola región. Este puente no atribuye una conducta ni una consecuencia jurídica al cerebelo.",
+  "warning": "No se presenta como explicación principal de procesos psicológicos forenses.",
+  "evidence": "directa",
+  "connections": [
+    "reticular",
+    "calloso"
+  ],
+  "sources": [
+    "curtis",
+    "hilares"
+  ],
+  "position": {
+    "x": 78,
+    "y": 79,
+    "view": "surface"
+  },
+  "order": 100
+}

@@ -1,0 +1,30 @@
+{
+  "id": "prefrontal",
+  "name": "Corteza prefrontal",
+  "group": "Corteza",
+  "location": "Región anterior del lóbulo frontal.",
+  "description": "Zona anterior de la corteza frontal representada aquí como una región funcional de exploración.",
+  "function": "Participa en solución de problemas y en procesos relacionados con el juicio.",
+  "processes": [
+    "Juicio",
+    "Solución de problemas",
+    "Toma de decisiones"
+  ],
+  "forensic": "Ayuda a contextualizar procesos cognitivos que pueden evaluarse psicológicamente, sin decidir por sí misma responsabilidad jurídica.",
+  "warning": "Daño o funcionamiento de una zona cerebral no equivale automáticamente a incapacidad legal.",
+  "evidence": "directa",
+  "connections": [
+    "frontal",
+    "talamo",
+    "limbico"
+  ],
+  "sources": [
+    "morris"
+  ],
+  "position": {
+    "x": 20,
+    "y": 40,
+    "view": "surface"
+  },
+  "order": 20
+}

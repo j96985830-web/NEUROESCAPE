@@ -1,0 +1,30 @@
+{
+  "id": "calloso",
+  "name": "Cuerpo calloso",
+  "group": "Sustancia blanca",
+  "location": "Comisura de sustancia blanca entre los hemisferios cerebrales.",
+  "description": "Principal vía comisural visible en una perspectiva medial.",
+  "function": "Conecta hemisferios y permite su comunicación y coordinación.",
+  "processes": [
+    "Integración interhemisférica",
+    "Comunicación entre hemisferios"
+  ],
+  "forensic": "Es útil para explicar que las funciones cerebrales no deben representarse como procesos totalmente aislados.",
+  "warning": "Conectividad cerebral no permite atribuir una conducta a una sola región o vía.",
+  "evidence": "directa",
+  "connections": [
+    "hipocampo",
+    "cerebelo",
+    "frontal"
+  ],
+  "sources": [
+    "curtis",
+    "hilares"
+  ],
+  "position": {
+    "x": 49,
+    "y": 40,
+    "view": "deep"
+  },
+  "order": 110
+}

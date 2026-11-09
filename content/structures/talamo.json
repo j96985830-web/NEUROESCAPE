@@ -1,0 +1,31 @@
+{
+  "id": "talamo",
+  "name": "Tálamo",
+  "group": "Diencéfalo",
+  "location": "Diencéfalo, en posición central y profunda.",
+  "description": "Estructura diencefálica de relevo e integración.",
+  "function": "Funciona como estación de relevo e integración de gran parte de la información sensorial.",
+  "processes": [
+    "Integración sensorial",
+    "Procesamiento de información",
+    "Atención"
+  ],
+  "forensic": "Permite explicar, en términos generales, cómo información que se procesa contribuye a procesos psicológicos superiores; no es una medida pericial.",
+  "warning": "La relevancia forense es un puente didáctico; no una relación diagnóstica directa.",
+  "evidence": "directa",
+  "connections": [
+    "reticular",
+    "prefrontal",
+    "frontal"
+  ],
+  "sources": [
+    "curtis",
+    "hilares"
+  ],
+  "position": {
+    "x": 51,
+    "y": 47,
+    "view": "deep"
+  },
+  "order": 70
+}

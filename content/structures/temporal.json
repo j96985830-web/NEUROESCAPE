@@ -1,0 +1,30 @@
+{
+  "id": "temporal",
+  "name": "Lóbulo temporal",
+  "group": "Corteza",
+  "location": "Porción lateral e inferior de cada hemisferio cerebral; incluye regiones temporales mediales y laterales.",
+  "description": "Lóbulo cortical incluido como ficha principal, separado del hipocampo, que conserva su propia ficha profunda.",
+  "function": "Las fuentes lo relacionan con componentes de memoria y con procesamiento de información.",
+  "processes": [
+    "Memoria",
+    "Procesamiento de información"
+  ],
+  "forensic": "Permite contextualizar la memoria como un proceso de red en la evaluación psicológica, sin convertir la actividad de un lóbulo en una conclusión sobre un testimonio.",
+  "warning": "El lóbulo temporal no es un registro de hechos ni una medida aislada de credibilidad.",
+  "evidence": "directa",
+  "connections": [
+    "hipocampo",
+    "amigdala",
+    "limbico"
+  ],
+  "sources": [
+    "morris",
+    "hilares"
+  ],
+  "position": {
+    "x": 63,
+    "y": 42,
+    "view": "surface"
+  },
+  "order": 30
+}

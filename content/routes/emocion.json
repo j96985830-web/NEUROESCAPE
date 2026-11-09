@@ -1,0 +1,24 @@
+{
+  "id": "emocion",
+  "number": "03",
+  "name": "Emoción y regulación",
+  "color": "#ff7c98",
+  "structures": [
+    "amigdala",
+    "limbico",
+    "hipotalamo",
+    "frontal"
+  ],
+  "flow": [
+    "Procesamiento emocional y estrés",
+    "Motivación y regulación",
+    "Comprensión del estado psicológico"
+  ],
+  "forensic": "Las variables emocionales se interpretan junto con historia, contexto, entrevistas, observación y demás datos relevantes.",
+  "warning": "Amígdala, hipotálamo o sistema límbico no equivalen a violencia ni a personalidad criminal.",
+  "sources": [
+    "curtis",
+    "alcazar",
+    "vazquez"
+  ]
+}

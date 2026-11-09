@@ -1,0 +1,13 @@
+{
+  "id": "nih3d",
+  "short": "NIH 3D / HRA",
+  "title": "3D Reference Organ for Brain, Male v1.3",
+  "authors": "Kristen Browne y Heidi Schlehlein",
+  "edition": "NIH 3D, entrada 3DPX-020960, versión 1.01 (2023)",
+  "use": "Modelo anatómico interactivo de esta versión. Derivado del Allen Human Reference Atlas – 3D, 2020.",
+  "locator": "Nodos anatómicos auditados en el visor oficial del GLB.",
+  "license": "CC BY 4.0",
+  "attribution": "Kristen Browne; Heidi Schlehlein. 2023. 3D Reference Organ for Brain, Male v1.3. NIH 3D. https://doi.org/10.48539/HBM929.XKCL.339",
+  "url": "https://3d.nih.gov/entries/20960?version=1.01",
+  "order": 40
+}
