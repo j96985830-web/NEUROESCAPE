@@ -62,3 +62,10 @@ Los docentes **no pueden crear ni eliminar fichas** de estructuras (cada una exi
 - **Hallazgo de auditoría:** los nodos `Allen_frontal_pole_L/R` se retiraron de las fichas Lóbulo frontal y Corteza prefrontal. En el GLB su geometría ocupa la mitad posterior e inferior del encéfalo, no el polo frontal. Conviene verificarlo contra el visor oficial de NIH 3D antes de reincorporarlos (detalle en `audit.findings`).
 - Las estructuras nuevas **no tienen forma en la vista didáctica 2D**; la página lo avisa y ofrece abrirlas en el atlas 3D.
 - Ejes del GLB: X izquierda(−)/derecha(+), Y abajo/arriba, Z posterior(−)/anterior(+).
+
+## Cambios v3.1 (aspecto del atlas y Explorador solo 3D)
+
+- Se retiró la «Vista didáctica» 2D del Explorador. Si el atlas 3D no carga, aparece un aviso con botón «Reintentar» y las fichas siguen disponibles desde el menú. La ilustración decorativa de la portada (`js/brain.js`) se conserva.
+- Material del cerebro más mate: el GLB trae rugosidad 0,25 (muy brillante); se fuerza un mínimo de 0,62 (constante `BASE_ROUGHNESS` en `js/brain3d.js`).
+- Opción «Colorear por grupo» (paleta en `GROUP_COLORS`) y opción «Acercar la cámara a la estructura seleccionada» (animación suave; se cancela si la persona gira o hace zoom).
+- Pendiente: relleno («tapa») de los cortes, borde luminoso de la selección y más fichas de las ~100 piezas del atlas que aún no tienen una.
