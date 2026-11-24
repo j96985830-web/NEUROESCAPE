@@ -1,0 +1,27 @@
+{
+  "id": "via-visual",
+  "name": "Vía visual (quiasma, tracto y radiación óptica)",
+  "group": "Sustancia blanca",
+  "location": "Desde el quiasma óptico (base del encéfalo) por el tracto óptico hasta el núcleo geniculado lateral del tálamo, y desde allí por la radiación óptica hasta la corteza occipital.",
+  "description": "Recorrido de la información visual desde la retina hasta la corteza.",
+  "function": "Transmite la información visual hacia el tálamo (núcleo geniculado lateral) y desde allí hacia la corteza occipital.",
+  "processes": [
+    "Percepción visual"
+  ],
+  "warning": "Incluye solo los componentes nombrados por el atlas; la retina y la corteza visual primaria no aparecen como nodos separados. Contenido en revisión: describe funciones de forma general; debe contrastarse con la bibliografía del curso antes de usarse como evidencia.",
+  "evidence": "contextual",
+  "connections": [
+    "lobulo-occipital",
+    "talamo"
+  ],
+  "sources": [
+    "nih3d"
+  ],
+  "position": {
+    "x": 62,
+    "y": 58,
+    "view": "deep"
+  },
+  "order": 130,
+  "reviewStatus": "pendiente"
+}

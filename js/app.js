@@ -8,8 +8,10 @@
   const app = document.querySelector("#app");
   // El atlas local es la vista principal del explorador. Si el archivo no está
   // disponible, el respaldo didáctico 2D se conserva sin perder navegación.
-  const state = { screen: "home", selectedId: null, selectedRouteId: "cognicion", view: "surface", menuOpen: false, atlasMode: "3d", atlasFailed: false, atlasError: null, atlasHemisphereOpacity: { left: 1, right: 1 }, atlasPresentation: "normal" };
+  const state = { screen: "home", selectedId: null, selectedRouteId: "cognicion", view: "surface", menuOpen: false, atlasMode: "3d", atlasFailed: false, atlasError: null, atlasHemisphereOpacity: { left: 1, right: 1 }, atlasPresentation: "normal", atlasClip: freshClip(), atlasHiddenGroups: [], atlasHiddenStructures: [], atlasStudioOpen: false };
   let brainController;
+  function freshClip() { return { sagittal: { on: false, pos: 50, flip: false }, coronal: { on: false, pos: 50, flip: false }, axial: { on: false, pos: 50, flip: false } }; }
+  function resetStudio() { state.atlasClip = freshClip(); state.atlasHiddenGroups = []; state.atlasHiddenStructures = []; }
 
   function selectedRoute() { return data.routes.find((route) => route.id === state.selectedRouteId); }
   function selectedStructure() { return data.structures.find((structure) => structure.id === state.selectedId); }
@@ -20,7 +22,12 @@
       hemisphereOpacity: { ...state.atlasHemisphereOpacity },
       presentation: state.atlasPresentation,
       isDeepSelected: isDeepAtlasSelection(),
-      canIsolate: atlasHasNodes(state.selectedId)
+      canIsolate: atlasHasNodes(state.selectedId),
+      clip: JSON.parse(JSON.stringify(state.atlasClip)),
+      hiddenGroups: [...state.atlasHiddenGroups],
+      hiddenStructures: [...state.atlasHiddenStructures],
+      selectedId: state.selectedId,
+      studioOpen: state.atlasStudioOpen
     };
   }
 
@@ -34,11 +41,13 @@
     const isAtlas = state.atlasMode === "3d";
     const modelLabel = isAtlas ? "Atlas anatómico 3D" : (state.view === "deep" ? "Vista profunda / medial" : "Vista exterior / lateral");
     const model = isAtlas ? Atlas3D.render({ failed: state.atlasFailed, ...atlasViewOptions() }) : Brain.render({ view: state.view });
+    const no2dShape = !isAtlas && state.selectedId && Brain.hasShape && !Brain.hasShape(state.selectedId);
+    const no2dNote = no2dShape ? `<p class="atlas-fallback-note">Esta estructura no tiene forma en la vista didáctica 2D. <button type="button" class="link-button" data-action="use-atlas">Verla en el Atlas 3D NIH</button></p>` : "";
     const routePreview = state.activeRoutePreview ? `<p class="route-preview-note">Ruta activa: <b>${route.name}</b> · violeta = estructuras de la ruta</p>` : "";
     const atlasFallback = state.atlasError === "LOCAL_FILE_PROTOCOL"
       ? "El atlas 3D requiere abrir NEUROSCAPE desde su servidor local. Ejecuta INICIAR-NEUROSCAPE.cmd y usa la dirección que se abre automáticamente."
       : "El modelo anatómico 3D no se pudo cargar. La vista didáctica sigue disponible.";
-    return `<main class="explorer-page">${UI.header("explore", state.menuOpen)}<section class="explorer-heading"><div><div class="eyebrow">EXPLORADOR ANATÓMICO</div><h1>Explora por capas, no por certezas.</h1></div><button class="reset-button" type="button" data-action="reset-view">↺ Restablecer vista</button></section><div class="explorer-layout">${UI.structureMenu(data, state.selectedId)}<section class="model-panel"><div class="model-meta"><span>${modelLabel}</span><span>${isAtlas ? "Gira · Acerca · Selecciona" : "Arrastra · Selecciona · Conecta"}</span></div><div class="atlas-switch" role="group" aria-label="Tipo de visualización"><button type="button" class="icon-button ${!isAtlas ? "is-selected" : ""}" data-action="use-2d">Vista didáctica</button><button type="button" class="icon-button ${isAtlas ? "is-selected" : ""}" data-action="use-atlas">Atlas 3D NIH</button></div>${routePreview}${state.atlasFailed ? `<p class="atlas-fallback-note">${atlasFallback}</p>` : ""}<div id="brain-root">${model}</div></section>${UI.informationPanel(data, state.selectedId, route)}</div><div class="bottom-warning">${UI.warning(data.globalWarning, true)}</div></main>`;
+    return `<main class="explorer-page">${UI.header("explore", state.menuOpen)}<section class="explorer-heading"><div><div class="eyebrow">EXPLORADOR ANATÓMICO</div><h1>Explora por capas, no por certezas.</h1></div><button class="reset-button" type="button" data-action="reset-view">↺ Restablecer vista</button></section><div class="explorer-layout">${UI.structureMenu(data, state.selectedId)}<section class="model-panel"><div class="model-meta"><span>${modelLabel}</span><span>${isAtlas ? "Gira · Acerca · Selecciona" : "Arrastra · Selecciona · Conecta"}</span></div><div class="atlas-switch" role="group" aria-label="Tipo de visualización"><button type="button" class="icon-button ${!isAtlas ? "is-selected" : ""}" data-action="use-2d">Vista didáctica</button><button type="button" class="icon-button ${isAtlas ? "is-selected" : ""}" data-action="use-atlas">Atlas 3D NIH</button></div>${routePreview}${no2dNote}${state.atlasFailed ? `<p class="atlas-fallback-note">${atlasFallback}</p>` : ""}<div id="brain-root">${model}</div></section>${UI.informationPanel(data, state.selectedId, route)}</div><div class="bottom-warning">${UI.warning(data.globalWarning, true)}</div></main>`;
   }
 
   function routes() {
@@ -75,7 +84,11 @@
         if (action === "use-2d") { state.atlasMode = "2d"; Atlas3D?.cancelPending(); render(); }
         if (action === "use-internal-view" && isDeepAtlasSelection()) { state.atlasPresentation = "internal"; render(); }
         if (action === "isolate-selection" && atlasHasNodes(state.selectedId)) { state.atlasPresentation = "isolate"; render(); }
-        if (action === "show-all") { state.atlasPresentation = "normal"; state.atlasHemisphereOpacity = { left: 1, right: 1 }; render(); }
+        if (action === "show-all") { state.atlasPresentation = "normal"; state.atlasHemisphereOpacity = { left: 1, right: 1 }; resetStudio(); render(); }
+        if (action === "camera-view") Atlas3D?.setView?.(view);
+        if (action === "hide-selection" && atlasHasNodes(state.selectedId)) { const hidden = state.selectedId; if (!state.atlasHiddenStructures.includes(hidden)) state.atlasHiddenStructures.push(hidden); state.selectedId = null; state.atlasPresentation = "normal"; state.atlasStudioOpen = true; render(); }
+        if (action === "unhide-structure") { state.atlasHiddenStructures = state.atlasHiddenStructures.filter((item) => item !== id); state.atlasStudioOpen = true; render(); }
+        if (action === "reset-studio") { resetStudio(); state.atlasStudioOpen = true; render(); }
         if (action === "reset-view") { if (state.atlasMode === "3d") Atlas3D?.reset(); else brainController?.reset(); state.selectedId = null; state.activeRoutePreview = false; state.atlasPresentation = "normal"; render(); }
       });
     });
@@ -89,6 +102,33 @@
         Atlas3D?.update({ selectedId: state.selectedId, routeStructureIds: state.activeRoutePreview ? selectedRoute().structures : [], ...atlasViewOptions() });
       });
     });
+    const refreshAtlas = () => Atlas3D?.update({ selectedId: state.selectedId, routeStructureIds: state.activeRoutePreview ? selectedRoute().structures : [], ...atlasViewOptions() });
+    app.querySelector("[data-studio]")?.addEventListener("toggle", (event) => { state.atlasStudioOpen = event.currentTarget.open; });
+    app.querySelectorAll('[data-action="toggle-clip"]').forEach((input) => input.addEventListener("change", (event) => {
+      const plane = event.currentTarget.dataset.plane;
+      if (!state.atlasClip[plane]) return;
+      state.atlasClip[plane].on = event.currentTarget.checked;
+      app.querySelectorAll(`[data-plane="${plane}"]:not([data-action="toggle-clip"])`).forEach((control) => { control.disabled = !event.currentTarget.checked; });
+      refreshAtlas();
+    }));
+    app.querySelectorAll('[data-action="set-clip"]').forEach((input) => input.addEventListener("input", (event) => {
+      const plane = event.currentTarget.dataset.plane;
+      if (!state.atlasClip[plane]) return;
+      state.atlasClip[plane].pos = Number(event.currentTarget.value);
+      refreshAtlas();
+    }));
+    app.querySelectorAll('[data-action="set-clip-side"]').forEach((select) => select.addEventListener("change", (event) => {
+      const plane = event.currentTarget.dataset.plane;
+      if (!state.atlasClip[plane]) return;
+      state.atlasClip[plane].flip = event.currentTarget.value === "b";
+      refreshAtlas();
+    }));
+    app.querySelectorAll('[data-action="toggle-layer"]').forEach((input) => input.addEventListener("change", (event) => {
+      const group = event.currentTarget.dataset.group;
+      state.atlasHiddenGroups = state.atlasHiddenGroups.filter((item) => item !== group);
+      if (!event.currentTarget.checked) state.atlasHiddenGroups.push(group);
+      refreshAtlas();
+    }));
     const brainRoot = app.querySelector("#brain-root");
     if (brainRoot) {
       const selected = selectedStructure();
@@ -114,6 +154,7 @@
     const structure = data.structures.find((item) => item.id === id);
     if (!structure) return;
     state.selectedId = id;
+    state.atlasHiddenStructures = state.atlasHiddenStructures.filter((item) => item !== id);
     state.activeRoutePreview = false;
     if (state.atlasMode === "3d") state.atlasPresentation = isDeepAtlasSelection(id) ? "internal" : "normal";
     if (state.atlasMode !== "3d") state.view = structure.position.view;

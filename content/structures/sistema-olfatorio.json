@@ -1,0 +1,30 @@
+{
+  "id": "sistema-olfatorio",
+  "name": "Sistema olfatorio",
+  "group": "Corteza",
+  "location": "Cara inferior del lóbulo frontal (bulbo y tracto olfatorios) y región ventral del lóbulo temporal anterior (corteza piriforme).",
+  "description": "Estructuras que reciben y procesan la información de los olores.",
+  "function": "Procesa la información olfatoria y mantiene conexiones directas con estructuras límbicas, lo que se asocia con la relación entre olores, emoción y memoria.",
+  "processes": [
+    "Olfato",
+    "Emoción",
+    "Memoria"
+  ],
+  "warning": "La relación entre olores, emoción y memoria es una asociación bien descrita, pero no implica que los olores determinen la conducta. Contenido en revisión: describe funciones de forma general; debe contrastarse con la bibliografía del curso antes de usarse como evidencia.",
+  "evidence": "contextual",
+  "connections": [
+    "limbico",
+    "amigdala",
+    "hipocampo"
+  ],
+  "sources": [
+    "nih3d"
+  ],
+  "position": {
+    "x": 26,
+    "y": 56,
+    "view": "surface"
+  },
+  "order": 170,
+  "reviewStatus": "pendiente"
+}

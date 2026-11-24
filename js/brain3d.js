@@ -14,6 +14,18 @@ window.NEUROSCAPE_3D = (() => {
       .map((structure) => structure.id)
   );
   let runtime = null;
+  const REST_LAYER = "__resto";
+  // Ejes del GLB (auditados en data/atlas-mapping.js): X izquierda(−)/derecha(+), Y abajo/arriba, Z posterior(−)/anterior(+).
+  const CLIP_PLANES = [
+    { id: "sagittal", axis: "x", label: "Plano sagital", hint: "izquierda ↔ derecha", sides: ["Conservar lado derecho", "Conservar lado izquierdo"] },
+    { id: "coronal", axis: "z", label: "Plano coronal", hint: "posterior ↔ anterior", sides: ["Conservar parte anterior", "Conservar parte posterior"] },
+    { id: "axial", axis: "y", label: "Plano axial", hint: "inferior ↔ superior", sides: ["Conservar parte superior", "Conservar parte inferior"] }
+  ];
+  const VIEW_PRESETS = {
+    front: { yaw: 0, pitch: 0.08 }, back: { yaw: Math.PI, pitch: 0.08 },
+    right: { yaw: Math.PI / 2, pitch: 0.08 }, left: { yaw: -Math.PI / 2, pitch: 0.08 },
+    top: { yaw: 0, pitch: 1.45 }, bottom: { yaw: 0, pitch: -1.45 }
+  };
   let loading = null;
   let latestOptions = null;
 
@@ -22,7 +34,7 @@ window.NEUROSCAPE_3D = (() => {
     return { left: normalize(value.left), right: normalize(value.right) };
   }
 
-  function render({ failed = false, hemisphereOpacity = { left: 1, right: 1 }, presentation = "normal", isDeepSelected = false, canIsolate = false } = {}) {
+  function render({ failed = false, hemisphereOpacity = { left: 1, right: 1 }, presentation = "normal", isDeepSelected = false, canIsolate = false, clip = null, hiddenGroups = [], hiddenStructures = [], selectedId = null, studioOpen = false } = {}) {
     const message = failed ? "No fue posible cargar la copia local del atlas." : "Preparando atlas anatómico oficial…";
     const opacity = normalizeHemisphereOpacity(hemisphereOpacity);
     const leftPercent = Math.round(opacity.left * 100);
@@ -32,7 +44,7 @@ window.NEUROSCAPE_3D = (() => {
       : presentation === "internal"
         ? "Vista interna automática: atenúa los hemisferios que contienen la selección; la estructura profunda resaltada se conserva sólida."
         : "Atlas normal: cada control ajusta únicamente las estructuras de su hemisferio anatómico correspondiente.";
-    return `<div class="atlas3d-stage" data-atlas3d-stage aria-label="Atlas tridimensional del encéfalo"><div class="atlas3d-grid" aria-hidden="true"></div><div class="atlas3d-status" data-atlas3d-status><span class="atlas3d-pulse"></span><p>${message}</p><small>El modelo se carga desde una copia local atribuida a NIH 3D.</small></div><div class="atlas3d-canvas" data-atlas3d-canvas></div><div class="atlas3d-toolbox"><div class="atlas3d-opacity-grid" aria-label="Opacidad por hemisferio"><label class="atlas3d-opacity"><span>Hemisferio izquierdo <output data-hemisphere-opacity-output="left">${leftPercent}%</output></span><input type="range" min="8" max="100" step="1" value="${leftPercent}" data-action="set-hemisphere-opacity" data-side="left" aria-label="Opacidad del hemisferio anatómico izquierdo" /></label><label class="atlas3d-opacity"><span>Hemisferio derecho <output data-hemisphere-opacity-output="right">${rightPercent}%</output></span><input type="range" min="8" max="100" step="1" value="${rightPercent}" data-action="set-hemisphere-opacity" data-side="right" aria-label="Opacidad del hemisferio anatómico derecho" /></label></div><p class="atlas3d-laterality-note">Lateralidad anatómica del cerebro, no de la pantalla.</p><div class="atlas3d-view-actions" role="group" aria-label="Visualización de estructuras internas"><button type="button" class="icon-button ${presentation === "internal" ? "is-selected" : ""}" data-action="use-internal-view" aria-pressed="${presentation === "internal"}" ${isDeepSelected ? "" : "disabled"}>Vista interna</button><button type="button" class="icon-button ${presentation === "isolate" ? "is-selected" : ""}" data-action="isolate-selection" aria-pressed="${presentation === "isolate"}" ${canIsolate ? "" : "disabled"}>Aislar selección</button><button type="button" class="icon-button" data-action="show-all">Mostrar todo</button></div><p class="atlas3d-view-state">${stateLabel}</p></div><div class="atlas3d-legend"><i></i> Selección · <b>violeta</b> ruta activa</div><div class="atlas3d-controls"><button type="button" class="icon-button" data-action="reset-view" title="Restablecer cámara">↺</button></div></div>`;
+    return `<div class="atlas3d-stage" data-atlas3d-stage aria-label="Atlas tridimensional del encéfalo"><div class="atlas3d-grid" aria-hidden="true"></div><div class="atlas3d-status" data-atlas3d-status><span class="atlas3d-pulse"></span><p>${message}</p><small>El modelo se carga desde una copia local atribuida a NIH 3D.</small></div><div class="atlas3d-canvas" data-atlas3d-canvas></div><div class="atlas3d-toolbox"><div class="atlas3d-opacity-grid" aria-label="Opacidad por hemisferio"><label class="atlas3d-opacity"><span>Hemisferio izquierdo <output data-hemisphere-opacity-output="left">${leftPercent}%</output></span><input type="range" min="8" max="100" step="1" value="${leftPercent}" data-action="set-hemisphere-opacity" data-side="left" aria-label="Opacidad del hemisferio anatómico izquierdo" /></label><label class="atlas3d-opacity"><span>Hemisferio derecho <output data-hemisphere-opacity-output="right">${rightPercent}%</output></span><input type="range" min="8" max="100" step="1" value="${rightPercent}" data-action="set-hemisphere-opacity" data-side="right" aria-label="Opacidad del hemisferio anatómico derecho" /></label></div><p class="atlas3d-laterality-note">Lateralidad anatómica del cerebro, no de la pantalla.</p><div class="atlas3d-view-actions" role="group" aria-label="Visualización de estructuras internas"><button type="button" class="icon-button ${presentation === "internal" ? "is-selected" : ""}" data-action="use-internal-view" aria-pressed="${presentation === "internal"}" ${isDeepSelected ? "" : "disabled"}>Vista interna</button><button type="button" class="icon-button ${presentation === "isolate" ? "is-selected" : ""}" data-action="isolate-selection" aria-pressed="${presentation === "isolate"}" ${canIsolate ? "" : "disabled"}>Aislar selección</button><button type="button" class="icon-button" data-action="show-all">Mostrar todo</button></div><p class="atlas3d-view-state">${stateLabel}</p></div><div class="atlas3d-legend"><i></i> Selección · <b>violeta</b> ruta activa</div><div class="atlas3d-controls"><button type="button" class="icon-button" data-action="reset-view" title="Restablecer cámara">↺</button></div></div>${studioPanel({ clip, hiddenGroups, hiddenStructures, selectedId, studioOpen })}`;
   }
 
   function setStatus(host, message, isError = false) {
@@ -49,7 +61,7 @@ window.NEUROSCAPE_3D = (() => {
   function buildNodeIndex() {
     const index = new Map();
     const mappings = atlas?.mappings || {};
-    nodePriority.forEach((structureId) => {
+    [...nodePriority, ...Object.keys(mappings).filter((id) => !nodePriority.includes(id))].forEach((structureId) => {
       (mappings[structureId]?.nodes || []).forEach((node) => {
         if (!index.has(node)) index.set(node, structureId);
       });
@@ -69,7 +81,8 @@ window.NEUROSCAPE_3D = (() => {
       transparent: material.transparent,
       depthTest: material.depthTest,
       depthWrite: material.depthWrite,
-      emissiveIntensity: material.emissiveIntensity
+      emissiveIntensity: material.emissiveIntensity,
+      side: material.side
     };
   }
 
@@ -97,6 +110,7 @@ window.NEUROSCAPE_3D = (() => {
         material.transparent = snapshot.transparent;
         material.depthTest = snapshot.depthTest;
         material.depthWrite = snapshot.depthWrite;
+        if (snapshot.side !== undefined) material.side = snapshot.side;
         if ("emissiveIntensity" in material) material.emissiveIntensity = snapshot.emissiveIntensity;
         material.needsUpdate = true;
       });
@@ -205,11 +219,103 @@ window.NEUROSCAPE_3D = (() => {
     });
   }
 
-  function update({ selectedId = null, routeStructureIds = [], hemisphereOpacity = { left: 1, right: 1 }, presentation = "normal" } = {}) {
+  function normalizeClip(value) {
+    const source = value || {};
+    const out = {};
+    CLIP_PLANES.forEach(({ id }) => {
+      const v = source[id] || {};
+      const pos = Number.isFinite(v.pos) ? Math.max(0, Math.min(100, v.pos)) : 50;
+      out[id] = { on: Boolean(v.on), pos, flip: Boolean(v.flip) };
+    });
+    return out;
+  }
+
+  // Un punto se conserva si su distancia con signo al plano es >= 0.
+  function buildClipPlanes(THREE, clip, bounds) {
+    const planes = [];
+    const normalized = normalizeClip(clip);
+    CLIP_PLANES.forEach(({ id, axis }) => {
+      if (!normalized[id].on || !bounds) return;
+      const value = bounds.min[axis] + (bounds.max[axis] - bounds.min[axis]) * (normalized[id].pos / 100);
+      const normal = new THREE.Vector3(axis === "x" ? 1 : 0, axis === "y" ? 1 : 0, axis === "z" ? 1 : 0);
+      if (normalized[id].flip) { normal.negate(); planes.push(new THREE.Plane(normal, value)); }
+      else planes.push(new THREE.Plane(normal, -value));
+    });
+    return planes;
+  }
+
+  function applyClipping(clip) {
+    const planes = buildClipPlanes(runtime.THREE, clip, runtime.bounds);
+    runtime.clipPlanes = planes;
+    runtime.renderer.clippingPlanes = planes;
+    // Sin tapas de corte: con DoubleSide se ve el interior de las superficies recortadas.
+    if (planes.length) runtime.meshes.forEach((mesh) => materialsOf(mesh).forEach((material) => { material.side = runtime.THREE.DoubleSide; material.needsUpdate = true; }));
+  }
+
+  function buildLayers() {
+    const groupOf = new Map((window.NEUROSCAPE_DATA?.structures || []).map((structure) => [structure.id, structure.group]));
+    const byGroup = new Map();
+    const byStructure = new Map();
+    const mapped = new Set();
+    Object.entries(atlas?.mappings || {}).forEach(([id, mapping]) => {
+      const meshes = objectsForNodes(mapping.nodes || []);
+      byStructure.set(id, meshes);
+      const group = groupOf.get(id);
+      if (!group) return;
+      if (!byGroup.has(group)) byGroup.set(group, new Set());
+      meshes.forEach((mesh) => { mapped.add(mesh); byGroup.get(group).add(mesh); });
+    });
+    return { byGroup, byStructure, rest: runtime.meshes.filter((mesh) => !mapped.has(mesh)) };
+  }
+
+  function applyHiddenLayers(hiddenGroups = [], hiddenStructures = [], selectedId = null) {
+    if (!runtime?.layers || (!hiddenGroups.length && !hiddenStructures.length)) return;
+    const { byGroup, byStructure, rest } = runtime.layers;
+    hiddenGroups.forEach((group) => (group === REST_LAYER ? rest : [...(byGroup.get(group) || [])]).forEach((mesh) => { mesh.visible = false; }));
+    hiddenStructures.forEach((id) => (byStructure.get(id) || []).forEach((mesh) => { mesh.visible = false; }));
+    // La estructura seleccionada siempre permanece visible.
+    if (selectedId) (byStructure.get(selectedId) || []).forEach((mesh) => { mesh.visible = true; });
+  }
+
+  function hitIsShown(hit) {
+    if (!hit.object.visible) return false;
+    return (runtime.clipPlanes || []).every((plane) => plane.distanceToPoint(hit.point) >= 0);
+  }
+
+  function setView(name) {
+    if (!runtime || !VIEW_PRESETS[name]) return;
+    runtime.orbit.yaw = VIEW_PRESETS[name].yaw;
+    runtime.orbit.pitch = VIEW_PRESETS[name].pitch;
+    lookAtTarget();
+  }
+
+  function studioPanel({ clip, hiddenGroups = [], hiddenStructures = [], selectedId = null, studioOpen = false } = {}) {
+    const esc = (value) => window.NEUROSCAPE_UI.esc(value);
+    const data = window.NEUROSCAPE_DATA || { groupOrder: [], structures: [] };
+    const normalized = normalizeClip(clip);
+    const planes = CLIP_PLANES.map((plane) => {
+      const state = normalized[plane.id];
+      const off = state.on ? "" : "disabled";
+      return `<div class="studio-row"><label class="studio-check"><input type="checkbox" data-action="toggle-clip" data-plane="${plane.id}" ${state.on ? "checked" : ""} /><span>${plane.label} <small>${plane.hint}</small></span></label><input type="range" min="0" max="100" step="1" value="${Math.round(state.pos)}" data-action="set-clip" data-plane="${plane.id}" aria-label="Posición del ${plane.label.toLowerCase()}" ${off} /><select data-action="set-clip-side" data-plane="${plane.id}" aria-label="Lado que se conserva en el ${plane.label.toLowerCase()}" ${off}><option value="a" ${state.flip ? "" : "selected"}>${plane.sides[0]}</option><option value="b" ${state.flip ? "selected" : ""}>${plane.sides[1]}</option></select></div>`;
+    }).join("");
+    const views = [["front", "Frontal"], ["back", "Posterior"], ["left", "Izquierda"], ["right", "Derecha"], ["top", "Superior"], ["bottom", "Inferior"]]
+      .map(([view, label]) => `<button type="button" class="icon-button" data-action="camera-view" data-view="${view}">${label}</button>`).join("");
+    const layers = [...(data.groupOrder || []).map((group) => [group, group]), [REST_LAYER, "Resto del atlas (sin ficha)"]]
+      .map(([key, label]) => `<label class="studio-check"><input type="checkbox" data-action="toggle-layer" data-group="${esc(key)}" ${hiddenGroups.includes(key) ? "" : "checked"} /><span>${esc(label)}</span></label>`).join("");
+    const chips = hiddenStructures.map((id) => {
+      const structure = (data.structures || []).find((item) => item.id === id);
+      return structure ? `<button type="button" class="studio-chip" data-action="unhide-structure" data-id="${esc(id)}" title="Volver a mostrar">${esc(structure.name)} ×</button>` : "";
+    }).join("");
+    const canHide = Boolean(selectedId && atlas?.mappings?.[selectedId]?.nodes?.length);
+    return `<details class="atlas3d-studio" data-studio ${studioOpen ? "open" : ""}><summary>Cortes, capas y cámara</summary><div class="studio-grid"><section aria-label="Planos de corte"><h4>Planos de corte</h4>${planes}<p class="studio-note">Los cortes no rellenan la superficie: dejan ver el interior del modelo. Para ver la cara del corte, gira la cámara hacia el lado recortado.</p></section><section aria-label="Cámara"><h4>Cámara</h4><div class="atlas3d-view-actions">${views}</div></section><section aria-label="Capas"><h4>Capas visibles</h4><div class="studio-layers">${layers}</div></section><section aria-label="Ocultar estructuras"><h4>Ocultar estructuras</h4><div class="atlas3d-view-actions"><button type="button" class="icon-button" data-action="hide-selection" ${canHide ? "" : "disabled"}>Ocultar selección</button><button type="button" class="icon-button" data-action="reset-studio">Restablecer cortes y capas</button></div><div class="studio-chips">${chips || "<span class=\"studio-empty\">Ninguna estructura oculta.</span>"}</div></section></div></details>`;
+  }
+
+  function update({ selectedId = null, routeStructureIds = [], hemisphereOpacity = { left: 1, right: 1 }, presentation = "normal", clip = null, hiddenGroups = [], hiddenStructures = [] } = {}) {
     if (!runtime) return;
     resetMaterials();
     const isolated = presentation === "isolate" && selectedId && isolateSelection(selectedId);
     if (!isolated) {
+      applyHiddenLayers(hiddenGroups, hiddenStructures, selectedId);
       const effectiveOpacity = normalizeHemisphereOpacity(hemisphereOpacity);
       if (presentation === "internal" && isDeepStructure(selectedId)) {
         hemispheresForStructure(selectedId).forEach((side) => {
@@ -219,13 +325,14 @@ window.NEUROSCAPE_3D = (() => {
       applyHemisphereOpacity(effectiveOpacity);
       routeStructureIds.forEach((id) => tint(id, ROUTE, false));
     }
+    applyClipping(clip);
     if (selectedId) tint(selectedId, HIGHLIGHT, true);
   }
 
   function lookAtTarget() {
     if (!runtime) return;
     const { camera, orbit } = runtime;
-    const polar = Math.max(-1.18, Math.min(1.18, orbit.pitch));
+    const polar = Math.max(-1.5, Math.min(1.5, orbit.pitch));
     camera.position.set(
       orbit.distance * Math.sin(orbit.yaw) * Math.cos(polar),
       orbit.distance * Math.sin(polar),
@@ -244,7 +351,8 @@ window.NEUROSCAPE_3D = (() => {
 
   function resize() {
     if (!runtime?.host) return;
-    const { width, height } = runtime.host.getBoundingClientRect();
+    const stage = runtime.host.querySelector("[data-atlas3d-stage]") || runtime.host;
+    const { width, height } = stage.getBoundingClientRect();
     if (!width || !height) return;
     runtime.camera.aspect = width / height;
     runtime.camera.updateProjectionMatrix();
@@ -293,7 +401,7 @@ window.NEUROSCAPE_3D = (() => {
         pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
         pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
         raycaster.setFromCamera(pointer, camera);
-        const hit = raycaster.intersectObject(runtime.model, true)[0];
+        const hit = raycaster.intersectObject(runtime.model, true).find(hitIsShown);
         const structureId = hit && resolveStructure(hit.object);
         if (structureId) latestOptions?.select?.(structureId);
       }
@@ -378,6 +486,10 @@ window.NEUROSCAPE_3D = (() => {
       else runtime.unassignedMeshes.push(object);
       runtime.meshHemisphere.set(object, side);
     });
+    model.updateMatrixWorld(true);
+    runtime.bounds = new THREE.Box3().setFromObject(model);
+    runtime.layers = buildLayers();
+    runtime.clipPlanes = [];
     bindInteraction(renderer.domElement);
     reset();
     return runtime;
@@ -391,7 +503,7 @@ window.NEUROSCAPE_3D = (() => {
     canvasHost.replaceChildren(runtime.renderer.domElement);
     runtime.resizeObserver?.disconnect();
     runtime.resizeObserver = new ResizeObserver(resize);
-    runtime.resizeObserver.observe(host);
+    runtime.resizeObserver.observe(host.querySelector("[data-atlas3d-stage]") || host);
     resize();
     runtime.renderer.setAnimationLoop(() => runtime.renderer.render(runtime.scene, runtime.camera));
     hideStatus(host);
@@ -424,5 +536,5 @@ window.NEUROSCAPE_3D = (() => {
     latestOptions = null;
   }
 
-  return { render, mount, release, cancelPending, reset, update, isDeepStructure };
+  return { render, mount, release, cancelPending, reset, update, isDeepStructure, setView, _internals: { buildClipPlanes, normalizeClip, CLIP_PLANES, REST_LAYER } };
 })();

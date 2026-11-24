@@ -28,6 +28,10 @@ window.NEUROSCAPE_ATLAS = {
       "Un mapeo directo usa el nodo anatómico homónimo del atlas.",
       "Un mapeo compuesto solo agrupa nodos explícitamente nombrados por el atlas.",
       "Una estructura sin nodo claro permanece sin selección 3D; no se usa un sustituto anatómico."
+    ],
+    findings: [
+      "Los nodos «Allen_frontal_pole_L/R» se retiraron de las fichas Lóbulo frontal y Corteza prefrontal: en el GLB su geometría se ubica en la mitad posterior e inferior del encéfalo (coordenada anteroposterior entre −63 y +3 mm respecto del centro, altura baja), no en el polo frontal. Verificar contra el visor oficial de NIH 3D antes de reincorporarlos.",
+      "Ejes del GLB: X = izquierda(−)/derecha(+), Y = abajo/arriba, Z = posterior(−)/anterior(+). Se usan para los planos de corte."
     ]
   },
   mappings: {
@@ -39,15 +43,13 @@ window.NEUROSCAPE_ATLAS = {
         "Allen_middle_frontal_gyrus_L", "Allen_middle_frontal_gyrus_R",
         "Allen_inferior_frontal_gyrus_triangular_part_L", "Allen_inferior_frontal_gyrus_triangular_part_R",
         "Allen_inferior_frontal_gyrus_opercular_part_L", "Allen_inferior_frontal_gyrus_opercular_part_R",
-        "Allen_frontal_operculum_L", "Allen_frontal_operculum_R",
-        "Allen_frontal_pole_L", "Allen_frontal_pole_R"
+        "Allen_frontal_operculum_L", "Allen_frontal_operculum_R"
       ]
     },
     prefrontal: {
       type: "composite",
       note: "No existe un nodo “prefrontal cortex”. Es una agrupación pedagógica marcada como compuesta, no una parcela oficial del atlas.",
       nodes: [
-        "Allen_frontal_pole_L", "Allen_frontal_pole_R",
         "Allen_superior_frontal_gyrus_L", "Allen_superior_frontal_gyrus_R",
         "Allen_middle_frontal_gyrus_L", "Allen_middle_frontal_gyrus_R",
         "Allen_inferior_frontal_gyrus_triangular_part_L", "Allen_inferior_frontal_gyrus_triangular_part_R",
@@ -128,6 +130,150 @@ window.NEUROSCAPE_ATLAS = {
       type: "direct",
       note: "El cuerpo calloso está representado por nodos izquierdo y derecho.",
       nodes: ["Allen_corpus_callosum_L", "Allen_corpus_callosum_R"]
+    },
+    "corteza-motora": {
+      type: "direct",
+      note: "El atlas ofrece el giro precentral como nodo explícito. No separa corteza motora primaria de áreas premotoras.",
+      nodes: [
+        "Allen_precentral_gyrus_L", "Allen_precentral_gyrus_R"
+      ]
+    },
+    "corteza-somatosensorial": {
+      type: "direct",
+      note: "El atlas ofrece el giro postcentral como nodo explícito.",
+      nodes: [
+        "Allen_postcentral_gyrus_L", "Allen_postcentral_gyrus_R"
+      ]
+    },
+    "lobulo-parietal": {
+      type: "composite",
+      note: "Agrupación didáctica: el atlas no ofrece un nodo único de lóbulo parietal. Agrupa lóbulo parietal superior, giros supramarginal y angular y precúneo; el giro postcentral tiene ficha propia.",
+      nodes: [
+        "Allen_supraparietal_lobule_L", "Allen_supraparietal_lobule_R",
+        "Allen_supramarginal_gyrus_L", "Allen_supramarginal_gyrus_R",
+        "Allen_angular_gyrus_L", "Allen_angular_gyrus_R",
+        "Allen_precuneus_L", "Allen_precuneus_R"
+      ]
+    },
+    "lobulo-occipital": {
+      type: "composite",
+      note: "Agrupación didáctica de los giros occipitales que el atlas nombra de forma explícita.",
+      nodes: [
+        "Allen_occipital_pole_L", "Allen_occipital_pole_R",
+        "Allen_cuneus_L", "Allen_cuneus_R",
+        "Allen_lingual_gyrus_medial_occipitotemporal_gyrus_L", "Allen_lingual_gyrus_medial_occipitotemporal_gyrus_R",
+        "Allen_lateral_occipitotemporal_fusiform_gyrus_occipital_part_L", "Allen_lateral_occipitotemporal_fusiform_gyrus_occipital_part_R",
+        "Allen_inferior_occipital_gyrus_L", "Allen_inferior_occipital_gyrus_R",
+        "Allen_superior_occipital_gyrus_L", "Allen_superior_occipital_gyrus_R"
+      ]
+    },
+    insula: {
+      type: "composite",
+      note: "Agrupa los giros insulares largos y cortos, el limen de la ínsula y las áreas insulares agranulares que el atlas nombra de forma explícita.",
+      nodes: [
+        "Allen_long_insular_gyri_L", "Allen_long_insular_gyri_R",
+        "Allen_short_insular_gyri_L", "Allen_short_insular_gyri_R",
+        "Allen_limen_insula_L", "Allen_limen_insula_R",
+        "Allen_frontal_agranular_insular_cortex_area_Fl_L", "Allen_frontal_agranular_insular_cortex_area_Fl_R",
+        "Allen_temporal_agranular_insular_cortex_area_Tl_L", "Allen_temporal_agranular_insular_cortex_area_Tl_R"
+      ]
+    },
+    "sistema-olfatorio": {
+      type: "composite",
+      note: "Agrupa los componentes olfatorios que el atlas nombra de forma explícita.",
+      nodes: [
+        "Allen_olfactory_bulb_L", "Allen_olfactory_bulb_R",
+        "Allen_olfactory_tract_L", "Allen_olfactory_tract_R",
+        "Allen_anterior_olfactory_nucleus_L", "Allen_anterior_olfactory_nucleus_R",
+        "Allen_piriform_region_L", "Allen_piriform_region_R",
+        "Allen_lateral_olfactory_gyrus_L", "Allen_lateral_olfactory_gyrus_R"
+      ]
+    },
+    "ganglios-basales": {
+      type: "composite",
+      note: "Agrupación didáctica: el atlas ofrece caudado (cabeza, cuerpo y cola), putamen, núcleo accumbens y segmentos del globo pálido como nodos separados; no existe un nodo único de ganglios basales.",
+      nodes: [
+        "Allen_head_of_caudate_L", "Allen_head_of_caudate_R",
+        "Allen_body_of_caudate_L", "Allen_body_of_caudate_R",
+        "Allen_tail_of_caudate_L", "Allen_tail_of_caudate_R",
+        "Allen_putamen_L", "Allen_putamen_R",
+        "Allen_posteroventral_putamen_L", "Allen_posteroventral_putamen_R",
+        "Allen_nucleus_accumbens_L", "Allen_nucleus_accumbens_R",
+        "Allen_external_segment_of_globus_pallidus_L", "Allen_external_segment_of_globus_pallidus_R",
+        "Allen_internal_segment_of_globus_pallidus_L", "Allen_internal_segment_of_globus_pallidus_R"
+      ]
+    },
+    "sistema-ventricular": {
+      type: "composite",
+      note: "Agrupa las cavidades ventriculares que el atlas nombra de forma explícita.",
+      nodes: [
+        "Allen_anterior_horn_of_lateral_ventricle_L", "Allen_anterior_horn_of_lateral_ventricle_R",
+        "Allen_body_of_lateral_ventricle_L", "Allen_body_of_lateral_ventricle_R",
+        "Allen_posterior_horn_of_lateral_ventricle_L", "Allen_posterior_horn_of_lateral_ventricle_R",
+        "Allen_inferior_horn_of_lateral_ventricle_L", "Allen_inferior_horn_of_lateral_ventricle_R",
+        "Allen_atrium_of_lateral_ventricle_L", "Allen_atrium_of_lateral_ventricle_R",
+        "Allen_third_ventricle_L", "Allen_third_ventricle_R",
+        "Allen_cerebral_aqueduct_L", "Allen_cerebral_aqueduct_R",
+        "Allen_fourth_ventricle_L", "Allen_fourth_ventricle_R",
+        "Allen_central_canal_of_medulla_oblongata_L", "Allen_central_canal_of_medulla_oblongata_R"
+      ]
+    },
+    "sustancia-negra": {
+      type: "direct",
+      note: "El atlas ofrece la sustancia negra como nodo explícito bilateral.",
+      nodes: [
+        "Allen_substantia_nigra_L", "Allen_substantia_nigra_R"
+      ]
+    },
+    mesencefalo: {
+      type: "composite",
+      note: "Agrupa las estructuras mesencefálicas que el atlas nombra de forma explícita. No se asigna formación reticular.",
+      nodes: [
+        "Allen_superior_colliculus_L", "Allen_superior_colliculus_R",
+        "Allen_inferior_colliculus_L", "Allen_inferior_colliculus_R",
+        "Allen_red_nucleus_L", "Allen_red_nucleus_R",
+        "Allen_cerebral_peduncle_crus_cerebri_L", "Allen_cerebral_peduncle_crus_cerebri_R",
+        "Allen_midbrain_tegmentum_L", "Allen_midbrain_tegmentum_R",
+        "Allen_pretectal_region_L", "Allen_pretectal_region_R",
+        "Allen_substantia_nigra_L", "Allen_substantia_nigra_R"
+      ]
+    },
+    puente: {
+      type: "composite",
+      note: "Agrupa la porción basilar, el tegmento pontino y el pedúnculo cerebeloso medio. No se asigna formación reticular.",
+      nodes: [
+        "Allen_basilar_part_of_pons_L", "Allen_basilar_part_of_pons_R",
+        "Allen_pontine_tegmentum_L", "Allen_pontine_tegmentum_R",
+        "Allen_middle_cerebellar_peduncle_L", "Allen_middle_cerebellar_peduncle_R"
+      ]
+    },
+    bulbo: {
+      type: "composite",
+      note: "Agrupa las estructuras bulbares que el atlas nombra de forma explícita. No se asigna formación reticular.",
+      nodes: [
+        "Allen_pyramidal_part_of_medulla_oblongata_L", "Allen_pyramidal_part_of_medulla_oblongata_R",
+        "Allen_tegmentum_of_medulla_oblongata_L", "Allen_tegmentum_of_medulla_oblongata_R",
+        "Allen_inferior_olive_L", "Allen_inferior_olive_R",
+        "Allen_inferior_cerebellar_peduncle_L", "Allen_inferior_cerebellar_peduncle_R"
+      ]
+    },
+    fornix: {
+      type: "composite",
+      note: "Agrupa el fórnix y el tracto mamilotalámico, nombrados de forma explícita por el atlas.",
+      nodes: [
+        "Allen_fornix_L", "Allen_fornix_R",
+        "Allen_mammillothalamic_tract_L", "Allen_mammillothalamic_tract_R"
+      ]
+    },
+    "via-visual": {
+      type: "composite",
+      note: "Agrupa quiasma óptico, tracto óptico, núcleo geniculado lateral y radiación óptica, nombrados de forma explícita por el atlas.",
+      nodes: [
+        "Allen_optic_tract_L", "Allen_optic_tract_R",
+        "Allen_dorsal_lateral_geniculate_nucleus_L", "Allen_dorsal_lateral_geniculate_nucleus_R",
+        "Allen_optic_radiation_L", "Allen_optic_radiation_R",
+        "VH_M_optic_chiasm"
+      ]
     }
   }
 };

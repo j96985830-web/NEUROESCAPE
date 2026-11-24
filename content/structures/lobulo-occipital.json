@@ -1,0 +1,30 @@
+{
+  "id": "lobulo-occipital",
+  "name": "Lóbulo occipital",
+  "group": "Corteza",
+  "location": "Polo posterior del hemisferio cerebral, por detrás de los lóbulos parietal y temporal.",
+  "description": "Regiones corticales posteriores dedicadas sobre todo al procesamiento visual.",
+  "function": "Procesa información visual, desde el análisis de rasgos básicos hasta el reconocimiento de formas, en conexión con regiones temporales y parietales.",
+  "processes": [
+    "Percepción visual",
+    "Reconocimiento de formas",
+    "Integración visuoespacial"
+  ],
+  "warning": "Las áreas visuales se extienden más allá del lóbulo occipital; esta ficha agrupa solo los giros occipitales nombrados por el atlas. Contenido en revisión: describe funciones de forma general; debe contrastarse con la bibliografía del curso antes de usarse como evidencia.",
+  "evidence": "contextual",
+  "connections": [
+    "via-visual",
+    "lobulo-parietal",
+    "temporal"
+  ],
+  "sources": [
+    "nih3d"
+  ],
+  "position": {
+    "x": 72,
+    "y": 38,
+    "view": "surface"
+  },
+  "order": 150,
+  "reviewStatus": "pendiente"
+}

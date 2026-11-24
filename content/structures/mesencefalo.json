@@ -1,0 +1,31 @@
+{
+  "id": "mesencefalo",
+  "name": "Mesencéfalo",
+  "group": "Tronco",
+  "location": "Porción superior del tronco encefálico, entre el diencéfalo y el puente.",
+  "description": "Segmento del tronco encefálico que integra vías motoras y sensoriales.",
+  "function": "Contiene los colículos superior e inferior (orientación visual y auditiva), el núcleo rojo y la sustancia negra (control motor) y los pedúnculos cerebrales, por donde descienden fibras motoras.",
+  "processes": [
+    "Orientación visual y auditiva",
+    "Control motor",
+    "Integración sensoriomotora"
+  ],
+  "warning": "La formación reticular del tegmento mesencefálico no se señala aquí: el atlas no la separa como estructura propia. Contenido en revisión: describe funciones de forma general; debe contrastarse con la bibliografía del curso antes de usarse como evidencia.",
+  "evidence": "contextual",
+  "connections": [
+    "sustancia-negra",
+    "talamo",
+    "cerebelo",
+    "puente"
+  ],
+  "sources": [
+    "nih3d"
+  ],
+  "position": {
+    "x": 52,
+    "y": 66,
+    "view": "deep"
+  },
+  "order": 140,
+  "reviewStatus": "pendiente"
+}

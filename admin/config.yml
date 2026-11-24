@@ -3,7 +3,7 @@
 
 backend:
   name: github
-  repo:  j96985830-web/NEUROESCAPE
+  repo: j96985830-web/NEUROESCAPE
   branch: main
   commit_messages:
     create: "Contenido: crear {{collection}} «{{slug}}»"
@@ -74,7 +74,9 @@ collections:
       - label: "Procesos psicológicos relacionados"
         name: processes
         widget: list
+        required: false
         field: { label: Proceso, name: proceso, widget: string }
+        hint: "Puede quedar vacío en estructuras de referencia anatómica (por ejemplo, ventrículos)."
       - label: "Relevancia para psicología forense (opcional)"
         name: forensic
         widget: text
@@ -92,6 +94,15 @@ collections:
         options:
           - { label: "Directa (respaldada de forma directa por las fuentes)", value: directa }
           - { label: "Contextual (relación contextual o didáctica)", value: contextual }
+      - label: "Estado de revisión"
+        name: reviewStatus
+        widget: select
+        required: false
+        default: revisada
+        options:
+          - { label: "Pendiente de revisión (se muestra con aviso «en revisión»)", value: pendiente }
+          - { label: "Revisada (contenido validado con fuente académica)", value: revisada }
+        hint: "Cuando valide el contenido y añada su fuente académica, cambie a «Revisada»: desaparece el aviso."
       - label: "Conexiones con otras fichas"
         name: connections
         widget: relation

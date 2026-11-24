@@ -1,0 +1,29 @@
+{
+  "id": "sustancia-negra",
+  "name": "Sustancia negra",
+  "group": "Tronco",
+  "location": "Mesencéfalo, entre el tegmento y los pedúnculos cerebrales.",
+  "description": "Núcleo del mesencéfalo con neuronas dopaminérgicas que se proyectan a los ganglios basales.",
+  "function": "Se asocia con la modulación del movimiento y con la señalización dopaminérgica vinculada al aprendizaje por recompensa y a la motivación.",
+  "processes": [
+    "Control motor",
+    "Motivación",
+    "Aprendizaje por recompensa"
+  ],
+  "warning": "La dopamina no equivale a «placer»: es un sistema modulador con varias funciones; conviene evitar explicaciones de causa única. Contenido en revisión: describe funciones de forma general; debe contrastarse con la bibliografía del curso antes de usarse como evidencia.",
+  "evidence": "contextual",
+  "connections": [
+    "ganglios-basales",
+    "mesencefalo"
+  ],
+  "sources": [
+    "nih3d"
+  ],
+  "position": {
+    "x": 52,
+    "y": 64,
+    "view": "deep"
+  },
+  "order": 130,
+  "reviewStatus": "pendiente"
+}

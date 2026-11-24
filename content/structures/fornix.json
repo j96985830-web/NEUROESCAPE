@@ -1,0 +1,30 @@
+{
+  "id": "fornix",
+  "name": "Fórnix y tracto mamilotalámico",
+  "group": "Sustancia blanca",
+  "location": "Haz arqueado de fibras bajo el cuerpo calloso que une el hipocampo con el hipotálamo (cuerpos mamilares); el tracto mamilotalámico continúa hacia el tálamo.",
+  "description": "Haces de fibras del circuito hipocampo–hipotálamo–tálamo.",
+  "function": "Forman parte del circuito de Papez, un modelo clásico que relaciona estas conexiones con la memoria y la emoción.",
+  "processes": [
+    "Memoria",
+    "Emoción"
+  ],
+  "warning": "El circuito de Papez es un modelo clásico; la investigación actual describe redes más amplias. Contenido en revisión: describe funciones de forma general; debe contrastarse con la bibliografía del curso antes de usarse como evidencia.",
+  "evidence": "contextual",
+  "connections": [
+    "hipocampo",
+    "hipotalamo",
+    "talamo",
+    "limbico"
+  ],
+  "sources": [
+    "nih3d"
+  ],
+  "position": {
+    "x": 50,
+    "y": 47,
+    "view": "deep"
+  },
+  "order": 120,
+  "reviewStatus": "pendiente"
+}

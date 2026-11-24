@@ -43,7 +43,7 @@ Los docentes **no pueden crear ni eliminar fichas** de estructuras (cada una exi
 
 ## Tareas de administración
 
-- **Añadir una estructura nueva:** (1) añadir su mapeo auditado en `data/atlas-mapping.js`; (2) crear `content/structures/<id>.json` copiando una ficha existente (`id` = nombre del archivo, `order` y `position` incluidos); (3) subir. Sin mapeo 3D solo aparece en la vista didáctica (el validador lo avisa).
+- **Añadir una estructura nueva:** (1) añadir su mapeo en `data/atlas-mapping.js` con nodos que existan en el GLB (el validador lo comprueba); (2) crear `content/structures/<id>.json` copiando una ficha existente (`id` = nombre del archivo, `order` y `position` incluidos); (3) subir. Si el contenido aún no tiene fuente académica, déjelo con `"reviewStatus": "pendiente"`: se muestra con aviso «en revisión».
 - **Cambiar los grupos del menú:** edite `groupOrder` en `content/settings.json` **y** la lista de opciones de «Grupo» en `admin/config.yml`.
 - **Probar en su computador:** `INICIAR-NEUROSCAPE.cmd` (Windows, requiere Python) o `./iniciar-neuroscape.sh` (Mac/Linux). El atlas 3D no funciona abriendo `index.html` con doble clic.
 - **Validar sin publicar:** `node scripts/build-content.js`.
@@ -53,3 +53,12 @@ Los docentes **no pueden crear ni eliminar fichas** de estructuras (cada una exi
 - El editor limita lo que ve un docente, pero con el backend de GitHub todo colaborador con escritura puede, técnicamente, modificar cualquier archivo desde GitHub. Para proteger `js/`, `css/`, `data/`, `assets/` y `admin/` de forma estricta se pueden añadir reglas del repositorio (`CODEOWNERS` y protección de rama); no se activó para no complicar el flujo de los docentes.
 - El interruptor del módulo forense es **global**. Un ajuste por curso o grupo llegará con la fase de cursos.
 - Todavía no hay cuentas propias de estudiantes ni analítica de uso (fase posterior; implica datos personales).
+
+## Atlas ampliado (v3)
+
+- **14 fichas nuevas**, todas con `reviewStatus: "pendiente"` y la fuente `nih3d` (solo respalda la anatomía): corteza motora, corteza somatosensorial, lóbulo parietal (parte posterior), lóbulo occipital, ínsula, sistema olfatorio, ganglios basales, sistema ventricular, sustancia negra, mesencéfalo, puente, bulbo raquídeo, fórnix y vía visual. Las funciones son descripciones generales **pendientes de contrastar con la bibliografía del curso**; al validarlas, el docente cambia el estado a «Revisada» y añade las fuentes.
+- **Planos de corte** (sagital, coronal, axial), **capas por grupo**, **ocultar estructuras** y **vistas de cámara** en el visor 3D. Los cortes no tienen «tapa»: dejan ver las superficies interiores del modelo.
+- **El validador ahora comprueba que cada nodo del mapeo exista en el GLB.**
+- **Hallazgo de auditoría:** los nodos `Allen_frontal_pole_L/R` se retiraron de las fichas Lóbulo frontal y Corteza prefrontal. En el GLB su geometría ocupa la mitad posterior e inferior del encéfalo, no el polo frontal. Conviene verificarlo contra el visor oficial de NIH 3D antes de reincorporarlos (detalle en `audit.findings`).
+- Las estructuras nuevas **no tienen forma en la vista didáctica 2D**; la página lo avisa y ofrece abrirlas en el atlas 3D.
+- Ejes del GLB: X izquierda(−)/derecha(+), Y abajo/arriba, Z posterior(−)/anterior(+).

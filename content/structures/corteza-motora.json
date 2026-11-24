@@ -1,0 +1,30 @@
+{
+  "id": "corteza-motora",
+  "name": "Corteza motora (giro precentral)",
+  "group": "Corteza",
+  "location": "Giro precentral: circunvolución situada inmediatamente por delante del surco central, en el lóbulo frontal.",
+  "description": "Región cortical frontal asociada con el origen de las órdenes para el movimiento voluntario.",
+  "function": "Participa en la ejecución del movimiento voluntario y se organiza de forma somatotópica: regiones vecinas controlan partes vecinas del cuerpo.",
+  "processes": [
+    "Movimiento voluntario",
+    "Ejecución motora"
+  ],
+  "warning": "El nodo del atlas corresponde al giro precentral completo; la corteza motora primaria y las áreas premotoras no se distinguen en este modelo. Contenido en revisión: describe funciones de forma general; debe contrastarse con la bibliografía del curso antes de usarse como evidencia.",
+  "evidence": "contextual",
+  "connections": [
+    "frontal",
+    "corteza-somatosensorial",
+    "ganglios-basales",
+    "cerebelo"
+  ],
+  "sources": [
+    "nih3d"
+  ],
+  "position": {
+    "x": 42,
+    "y": 22,
+    "view": "surface"
+  },
+  "order": 120,
+  "reviewStatus": "pendiente"
+}

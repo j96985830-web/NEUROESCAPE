@@ -78,13 +78,17 @@ try {
 // ── Estructuras ──────────────────────────────────────────────────────────────
 const structureFiles = readFolder("structures");
 const structureIds = new Set(structureFiles.map((s) => s.data.id));
+const pending = [];
+const noForensic = [];
 structureFiles.forEach(({ file, slug, data }) => {
   if (data.id !== slug) err(`${file}: el id «${data.id}» debe coincidir con el nombre del archivo («${slug}»).`);
   ["name", "group", "location", "description", "function", "warning"].forEach((k) => needText(data, k, file));
-  needList(data, "processes", file);
+  if (data.processes !== undefined && !(Array.isArray(data.processes) && data.processes.every(isText))) err(`${file}: «processes» debe ser una lista de textos no vacíos (puede estar vacía).`);
   needList(data, "sources", file);
   ["forensic", "interpretiveBridge"].forEach((k) => optText(data, k, file));
-  if (forensic && !isText(data.forensic)) warn(`${file}: el módulo forense está activo pero esta ficha no tiene texto forense.`);
+  if (data.reviewStatus !== undefined && !["pendiente", "revisada"].includes(data.reviewStatus)) err(`${file}: «reviewStatus» debe ser «pendiente» o «revisada».`);
+  if (data.reviewStatus === "pendiente") pending.push(data.id);
+  if (forensic && !isText(data.forensic)) noForensic.push(data.id);
   if (!["directa", "contextual"].includes(data.evidence)) err(`${file}: «evidence» debe ser «directa» o «contextual».`);
   if (isTextList(settings.groupOrder) && !settings.groupOrder.includes(data.group)) err(`${file}: el grupo «${data.group}» no está en la lista de grupos de los ajustes.`);
   (data.connections || []).forEach((id) => { if (!structureIds.has(id)) err(`${file}: la conexión «${id}» no existe como ficha.`); if (id === data.id) err(`${file}: una ficha no puede conectarse consigo misma.`); });
@@ -95,6 +99,26 @@ structureFiles.forEach(({ file, slug, data }) => {
   if (!atlasMappings[data.id]) warn(`${file}: no tiene mapeo 3D en data/atlas-mapping.js; solo se verá en la vista didáctica (lo añade administración técnica).`);
 });
 Object.keys(atlasMappings).forEach((id) => { if (!structureIds.has(id)) err(`data/atlas-mapping.js: el mapeo «${id}» no tiene ficha en content/structures.`); });
+
+// Cada nodo del mapeo debe existir de verdad en el GLB (lee solo su cabecera JSON).
+function glbNodeNames() {
+  const rel = (global.window && global.window.NEUROSCAPE_ATLAS && global.window.NEUROSCAPE_ATLAS.model && global.window.NEUROSCAPE_ATLAS.model.localUrl) || "assets/3d-vh-m-allen-brain.glb";
+  const file = path.join(ROOT, rel);
+  if (!fs.existsSync(file)) { warn(`No se encontró ${rel}: no se verificaron los nodos del mapeo 3D.`); return null; }
+  try {
+    const fd = fs.openSync(file, "r");
+    const head = Buffer.alloc(20); fs.readSync(fd, head, 0, 20, 0);
+    const chunk = Buffer.alloc(head.readUInt32LE(12)); fs.readSync(fd, chunk, 0, chunk.length, 20); fs.closeSync(fd);
+    return new Set(JSON.parse(chunk.toString("utf8")).nodes.map((n) => n.name));
+  } catch (e) { warn(`No se pudo leer el GLB (${e.message}); no se verificaron los nodos.`); return null; }
+}
+const glbNames = glbNodeNames();
+if (glbNames) {
+  Object.entries(atlasMappings).forEach(([id, m]) => {
+    (m.nodes || []).forEach((n) => { if (!glbNames.has(n)) err(`data/atlas-mapping.js: el nodo «${n}» (ficha «${id}») no existe en el modelo 3D.`); });
+    if (m.type !== "not-available" && !(m.nodes || []).length) warn(`data/atlas-mapping.js: el mapeo «${id}» no tiene nodos.`);
+  });
+}
 
 // ── Rutas ────────────────────────────────────────────────────────────────────
 const routeFiles = readFolder("routes");
@@ -112,6 +136,8 @@ routeFiles.forEach(({ file, slug, data }) => {
 });
 
 // ── Resultado ────────────────────────────────────────────────────────────────
+if (noForensic.length) warn(`${noForensic.length} ficha(s) sin texto forense con el módulo forense activo (${noForensic.join(", ")}). Es opcional.`);
+if (pending.length) warn(`${pending.length} ficha(s) marcadas «pendiente» de revisión docente y de fuente académica: ${pending.join(", ")}.`);
 warnings.forEach((m) => console.warn(`  aviso: ${m}`));
 if (errors.length) {
   console.error(`\nNEUROSCAPE: el contenido tiene ${errors.length} error(es) y no se publicará:\n`);
@@ -140,4 +166,4 @@ const header = `/*
  */
 `;
 fs.writeFileSync(path.join(ROOT, "data", "knowledge-base.js"), `${header}window.NEUROSCAPE_DATA = ${JSON.stringify(data, null, 2)};\n`);
-console.log(`NEUROSCAPE: contenido válido · ${data.structures.length} fichas, ${data.routes.length} rutas, ${data.sources.length} fuentes · módulo forense ${forensic ? "activo" : "desactivado"}.`);
+console.log(`NEUROSCAPE: contenido válido · ${data.structures.length} fichas (${pending.length} en revisión), ${data.routes.length} rutas, ${data.sources.length} fuentes · módulo forense ${forensic ? "activo" : "desactivado"}.`);

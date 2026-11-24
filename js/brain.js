@@ -99,5 +99,6 @@ window.BrainView = (() => {
       node.classList.toggle("is-route", routeStructureIds.includes(node.dataset.structure));
     });
   }
-  return { render, initialise, update };
+  const hasShape = (id) => surfaceSvg.includes(`data-structure="${id}"`) || deepSvg.includes(`data-structure="${id}"`);
+  return { render, initialise, update, hasShape };
 })();

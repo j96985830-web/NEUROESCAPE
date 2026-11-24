@@ -1,0 +1,25 @@
+{
+  "id": "sistema-ventricular",
+  "name": "Sistema ventricular",
+  "group": "Profundas",
+  "location": "Cavidades interconectadas en el interior del encéfalo: ventrículos laterales, tercer ventrículo, acueducto cerebral y cuarto ventrículo.",
+  "description": "Cavidades llenas de líquido cefalorraquídeo que recorren el interior del encéfalo.",
+  "function": "Producen y distribuyen líquido cefalorraquídeo, que amortigua el tejido nervioso y contribuye a su homeostasis; su tamaño y forma sirven como referencia anatómica en neuroimagen.",
+  "processes": [],
+  "warning": "Es una estructura de referencia anatómica: no se asocia de forma directa con procesos psicológicos. Contenido en revisión: describe funciones de forma general; debe contrastarse con la bibliografía del curso antes de usarse como evidencia.",
+  "evidence": "contextual",
+  "connections": [
+    "talamo",
+    "calloso"
+  ],
+  "sources": [
+    "nih3d"
+  ],
+  "position": {
+    "x": 50,
+    "y": 44,
+    "view": "deep"
+  },
+  "order": 130,
+  "reviewStatus": "pendiente"
+}

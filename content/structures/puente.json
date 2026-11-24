@@ -1,0 +1,29 @@
+{
+  "id": "puente",
+  "name": "Puente",
+  "group": "Tronco",
+  "location": "Porción media del tronco encefálico, entre el mesencéfalo y el bulbo, por delante del cerebelo.",
+  "description": "Segmento del tronco encefálico que conecta la corteza cerebral con el cerebelo.",
+  "function": "Retransmite información entre la corteza cerebral y el cerebelo a través de los pedúnculos cerebelosos medios y alberga núcleos de nervios craneales y vías ascendentes y descendentes.",
+  "processes": [
+    "Coordinación motora",
+    "Integración sensoriomotora"
+  ],
+  "warning": "El tegmento pontino contiene formación reticular, pero el atlas no la delimita como estructura propia, por lo que no se señala. Contenido en revisión: describe funciones de forma general; debe contrastarse con la bibliografía del curso antes de usarse como evidencia.",
+  "evidence": "contextual",
+  "connections": [
+    "mesencefalo",
+    "bulbo",
+    "cerebelo"
+  ],
+  "sources": [
+    "nih3d"
+  ],
+  "position": {
+    "x": 52,
+    "y": 72,
+    "view": "deep"
+  },
+  "order": 150,
+  "reviewStatus": "pendiente"
+}

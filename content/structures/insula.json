@@ -1,0 +1,31 @@
+{
+  "id": "insula",
+  "name": "Ínsula",
+  "group": "Corteza",
+  "location": "Corteza situada en la profundidad del surco lateral, cubierta por los opérculos frontal, parietal y temporal.",
+  "description": "Corteza profunda que integra señales del cuerpo con información emocional y cognitiva.",
+  "function": "Se relaciona con la interocepción (percepción del estado interno del cuerpo), la conciencia emocional, la empatía y el procesamiento del dolor y del asco.",
+  "processes": [
+    "Interocepción",
+    "Conciencia emocional",
+    "Empatía",
+    "Procesamiento del dolor"
+  ],
+  "warning": "Buena parte de lo que se sabe de la ínsula proviene de estudios de neuroimagen, que muestran asociación y no causalidad. Contenido en revisión: describe funciones de forma general; debe contrastarse con la bibliografía del curso antes de usarse como evidencia.",
+  "evidence": "contextual",
+  "connections": [
+    "limbico",
+    "frontal",
+    "temporal"
+  ],
+  "sources": [
+    "nih3d"
+  ],
+  "position": {
+    "x": 58,
+    "y": 52,
+    "view": "deep"
+  },
+  "order": 160,
+  "reviewStatus": "pendiente"
+}

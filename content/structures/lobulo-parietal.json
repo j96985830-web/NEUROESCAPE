@@ -1,0 +1,32 @@
+{
+  "id": "lobulo-parietal",
+  "name": "Lóbulo parietal (parte posterior)",
+  "group": "Corteza",
+  "location": "Región posterior al giro postcentral y superior al lóbulo temporal, entre los lóbulos frontal y occipital.",
+  "description": "Regiones parietales asociativas que integran información sensorial y espacial.",
+  "function": "Se asocia con la atención espacial, la integración sensorial y la orientación visuoespacial; los giros supramarginal y angular se vinculan con aspectos del lenguaje y la lectura.",
+  "processes": [
+    "Atención espacial",
+    "Integración sensorial",
+    "Procesamiento visuoespacial",
+    "Lenguaje y lectura (asociación)"
+  ],
+  "warning": "La agrupación es pedagógica y no equivale a un lóbulo parietal completo. Contenido en revisión: describe funciones de forma general; debe contrastarse con la bibliografía del curso antes de usarse como evidencia.",
+  "evidence": "contextual",
+  "connections": [
+    "corteza-somatosensorial",
+    "lobulo-occipital",
+    "temporal",
+    "frontal"
+  ],
+  "sources": [
+    "nih3d"
+  ],
+  "position": {
+    "x": 60,
+    "y": 27,
+    "view": "surface"
+  },
+  "order": 140,
+  "reviewStatus": "pendiente"
+}

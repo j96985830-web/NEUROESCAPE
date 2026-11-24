@@ -20,6 +20,15 @@ No necesita saber programar. Todo se hace desde el editor, en el navegador.
 
 Cada cambio queda guardado con su autor, fecha y versión anterior, así que siempre se puede volver atrás pidiéndoselo al administrador.
 
+## Fichas «en revisión»
+Algunas fichas nuevas aparecen con la etiqueta **en revisión**. Son borradores: describen las funciones de forma general y todavía no tienen fuente académica del curso. Para validarlas:
+1. Abra la ficha y revise cada texto contra su bibliografía.
+2. En **Fuentes** añada la fuente del curso (si no existe, créela en *Fuentes y bibliografía*).
+3. Cambie **Estado de revisión** a **Revisada**. El aviso desaparece.
+
+## Herramientas del atlas 3D para estudiantes
+En el Explorador, el panel **Cortes, capas y cámara** permite: cortar el modelo con planos sagital, coronal y axial, ocultar grupos de estructuras, ocultar la estructura seleccionada y girar la cámara a vistas frontal, posterior, laterales, superior e inferior.
+
 ## Buenas prácticas de contenido
 - Use formulaciones prudentes: «participa en», «se relaciona con», «interviene en». Evite afirmar que una estructura «causa» una conducta.
 - Toda ficha necesita al menos una fuente; añada la fuente antes de usarla.

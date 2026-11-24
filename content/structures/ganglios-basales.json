@@ -1,0 +1,32 @@
+{
+  "id": "ganglios-basales",
+  "name": "Ganglios basales",
+  "group": "Profundas",
+  "location": "Masas de sustancia gris profundas a cada lado del tálamo, rodeadas por sustancia blanca.",
+  "description": "Conjunto de núcleos subcorticales que forman circuitos con la corteza y el tálamo.",
+  "function": "Participan en el inicio y la regulación del movimiento voluntario, en el aprendizaje de hábitos y en circuitos de recompensa y motivación.",
+  "processes": [
+    "Control motor",
+    "Aprendizaje de hábitos",
+    "Recompensa y motivación",
+    "Selección de acciones"
+  ],
+  "warning": "Los ganglios basales no actúan de forma aislada: forman circuitos con la corteza y el tálamo, y su alteración no explica por sí sola una conducta concreta. Contenido en revisión: describe funciones de forma general; debe contrastarse con la bibliografía del curso antes de usarse como evidencia.",
+  "evidence": "contextual",
+  "connections": [
+    "talamo",
+    "frontal",
+    "prefrontal",
+    "sustancia-negra"
+  ],
+  "sources": [
+    "nih3d"
+  ],
+  "position": {
+    "x": 47,
+    "y": 50,
+    "view": "deep"
+  },
+  "order": 120,
+  "reviewStatus": "pendiente"
+}

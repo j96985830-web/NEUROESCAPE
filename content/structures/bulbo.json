@@ -1,0 +1,28 @@
+{
+  "id": "bulbo",
+  "name": "Bulbo raquídeo",
+  "group": "Tronco",
+  "location": "Porción inferior del tronco encefálico, continua con la médula espinal.",
+  "description": "Segmento del tronco encefálico que conecta el encéfalo con la médula espinal.",
+  "function": "Contiene las pirámides (vías motoras descendentes), la oliva inferior (relacionada con el aprendizaje motor cerebeloso) y centros que participan en funciones autonómicas básicas como la respiración y el control cardiovascular.",
+  "processes": [
+    "Funciones autonómicas básicas",
+    "Control motor"
+  ],
+  "warning": "La formación reticular bulbar no se señala: el atlas no la separa como estructura propia. Contenido en revisión: describe funciones de forma general; debe contrastarse con la bibliografía del curso antes de usarse como evidencia.",
+  "evidence": "contextual",
+  "connections": [
+    "puente",
+    "cerebelo"
+  ],
+  "sources": [
+    "nih3d"
+  ],
+  "position": {
+    "x": 52,
+    "y": 82,
+    "view": "deep"
+  },
+  "order": 160,
+  "reviewStatus": "pendiente"
+}

@@ -1,0 +1,30 @@
+{
+  "id": "corteza-somatosensorial",
+  "name": "Corteza somatosensorial (giro postcentral)",
+  "group": "Corteza",
+  "location": "Giro postcentral: circunvolución situada inmediatamente por detrás del surco central, en el lóbulo parietal.",
+  "description": "Región cortical parietal que recibe información sensorial del cuerpo.",
+  "function": "Recibe información táctil y propioceptiva y se organiza de forma somatotópica, de modo análogo a la corteza motora.",
+  "processes": [
+    "Sensibilidad táctil",
+    "Propiocepción",
+    "Percepción corporal"
+  ],
+  "warning": "El nodo del atlas es el giro postcentral completo; no distingue las áreas citoarquitectónicas que lo componen. Contenido en revisión: describe funciones de forma general; debe contrastarse con la bibliografía del curso antes de usarse como evidencia.",
+  "evidence": "contextual",
+  "connections": [
+    "corteza-motora",
+    "lobulo-parietal",
+    "talamo"
+  ],
+  "sources": [
+    "nih3d"
+  ],
+  "position": {
+    "x": 50,
+    "y": 24,
+    "view": "surface"
+  },
+  "order": 130,
+  "reviewStatus": "pendiente"
+}
